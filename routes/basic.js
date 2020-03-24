@@ -7,5 +7,6 @@ module.exports = ({ router }) => {
       .find()
       .toArray()
     ctx.body = users
+    // ctx.status = 200
   })
 }
