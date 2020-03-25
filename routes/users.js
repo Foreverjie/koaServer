@@ -1,19 +1,27 @@
+const userCtrl = require('../controller/UserController')
+
 module.exports = ({ userRouter }) => {
     // getting the home route
-    userRouter.get("/", async (ctx, next) => {
+    // userRouter.get("/", async (ctx, next) => {
     // const result = await ctx.db.collection("users").insert({ name: "haha" })
-        let users = await ctx.db
-        .collection("users")
-        .find()
-        .toArray()
-        ctx.body = users
-        // ctx.status = 200
-    })
+        // let users = await ctx.db
+        // .collection("users")
+        // .find()
+        // .toArray()
+        // ctx.body = users
 
-    userRouter.post("/", async (ctx, next) => {
-        // console.log(ctx.request)
-        let { username, pass, password } = ctx.request.body
-        console.log(username, password, pass)
-        ctx.body = 'pass'
-    })
+        // ctx.status = 200
+    // })
+
+    userRouter.get('/', userCtrl.users)
+    userRouter.post('/', userCtrl.createUser)
+
+    // userRouter.post("/", async (ctx, next) => {
+    //     // console.log(ctx.request)
+    //     let { username, password } = ctx.request.body
+    //     console.log(username, password)
+    //     ctx.body = 'pass'
+    // })
+
+
   }
