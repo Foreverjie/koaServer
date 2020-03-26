@@ -7,7 +7,7 @@ const mongo = require("koa-mongo")
 
 const app = new Koa()
 
-app.use(koaBody({multipart: true}))
+app.use(koaBody({ multipart: true }))
 
 app.use(
   mongo({
@@ -38,10 +38,12 @@ app.use(async (ctx, next) => {
 const router = new Router()
 const dogRouter = new Router({ prefix: "/dogs" })
 const userRouter = new Router({ prefix: "/users" })
+const articleRouter = new Router({ prefix: "/articles" })
 // require our external routes and pass in the router
 require("./routes/basic")({ router })
 require("./routes/dogs")({ dogRouter })
 require("./routes/users")({ userRouter })
+require("./routes/articles")({ articleRouter })
 
 app.use(router.routes())
 app.use(router.allowedMethods())
@@ -49,6 +51,8 @@ app.use(dogRouter.routes())
 app.use(dogRouter.allowedMethods())
 app.use(userRouter.routes())
 app.use(userRouter.allowedMethods())
+app.use(articleRouter.routes())
+app.use(articleRouter.allowedMethods())
 
 const server = app.listen(3000)
 module.exports = server
