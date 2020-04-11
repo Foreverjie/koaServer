@@ -8,11 +8,17 @@ class ArticleController {
   }
 
   static async addArticle(ctx) {
-    // let { username, password } = ctx.request.body
-    // let user = await ctx.db
-    //   .collection("users")
-    //   .insertOne({ username, password })
-    ctx.body = user
+    let {
+      title,
+      desc
+    } = ctx.request.body
+    let article = await ctx.db
+      .collection("articles")
+      .insertOne({
+        title,
+        desc
+      })
+    ctx.body = article.ops
   }
 }
 

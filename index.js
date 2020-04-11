@@ -4,10 +4,16 @@ const koaBody = require("koa-body")
 const Router = require("koa-router")
 const logger = require("koa-logger")
 const mongo = require("koa-mongo")
+const cors = require("@koa/cors")
 
 const app = new Koa()
 
-app.use(koaBody({ multipart: true }))
+app.use(cors())
+app.use(
+  koaBody({
+    multipart: true,
+  })
+)
 
 app.use(
   mongo({
@@ -17,7 +23,7 @@ app.use(
     authSource: "",
     max: 100,
     min: 1,
-    acquireTimeoutMillis: 100
+    acquireTimeoutMillis: 100,
   })
 )
 
@@ -36,14 +42,28 @@ app.use(async (ctx, next) => {
 
 // instantiate our new Router
 const router = new Router()
-const dogRouter = new Router({ prefix: "/dogs" })
-const userRouter = new Router({ prefix: "/users" })
-const articleRouter = new Router({ prefix: "/articles" })
+const dogRouter = new Router({
+  prefix: "/dogs",
+})
+const userRouter = new Router({
+  prefix: "/users",
+})
+const articleRouter = new Router({
+  prefix: "/articles",
+})
 // require our external routes and pass in the router
-require("./routes/basic")({ router })
-require("./routes/dogs")({ dogRouter })
-require("./routes/users")({ userRouter })
-require("./routes/articles")({ articleRouter })
+require("./routes/basic")({
+  router,
+})
+require("./routes/dogs")({
+  dogRouter,
+})
+require("./routes/users")({
+  userRouter,
+})
+require("./routes/articles")({
+  articleRouter,
+})
 
 app.use(router.routes())
 app.use(router.allowedMethods())
@@ -54,5 +74,5 @@ app.use(userRouter.allowedMethods())
 app.use(articleRouter.routes())
 app.use(articleRouter.allowedMethods())
 
-const server = app.listen(3000)
+const server = app.listen(4000)
 module.exports = server
