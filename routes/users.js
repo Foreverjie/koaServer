@@ -25,11 +25,15 @@
 // }
 
 const Router = require("koa-router")
-const router = new Router({ prefix: "/users" })
+const router = new Router({
+  prefix: "/users"
+})
 const {
-  find
-} = require("../controllers/users")
+  find,
+  create
+} = require("../controller/User")
 
 router.get("/", find)
+router.post("/", create)
 
 module.exports = router

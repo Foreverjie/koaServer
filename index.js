@@ -1,6 +1,7 @@
 // app.js
 const Koa = require("koa")
 const koaBody = require("koa-body")
+const parameter = require("koa-parameter")
 // const Router = require("koa-router")
 const routing = require("./routes")
 const logger = require("koa-logger")
@@ -17,12 +18,15 @@ app.use(
   })
 )
 
-mongoose.connect('mongodb://localhost:27017/articles', {useNewUrlParser: true, useUnifiedTopology: true});
-const db = mongoose.connection
-db.on('error', console.error.bind(console, 'connection error:'))
-db.once('open', function() {
-  console.log('mongodb connected')
+mongoose.connect("mongodb://localhost:27017/articles", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 })
+const db = mongoose.connection
+db.on("error", console.error.bind(console, "connection error:"))
+// db.once("open", function () {
+//   console.log("mongodb connected")
+// })
 
 // app.use(
 //   mongo({
@@ -83,6 +87,7 @@ app.use(async (ctx, next) => {
 // app.use(articleRouter.routes())
 // app.use(articleRouter.allowedMethods())
 
+app.use(parameter(app))
 routing(app)
 
-app.listen(4000, () => console.log('Running at port 4000'))
+app.listen(4000, () => console.log("Running at port 4000"))
