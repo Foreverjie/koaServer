@@ -5,4 +5,5 @@ module.exports = ({
 }) => {
   articleRouter.get("/", articleCtrl.articles)
   articleRouter.post("/", articleCtrl.addArticle)
+  articleRouter.get("/:id", articleCtrl.article)
 }
