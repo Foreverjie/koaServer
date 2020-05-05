@@ -14,12 +14,12 @@ const topicSchema = new Schema({
     type: String,
     required: true
   },
-  avatar_url: {
-    type: String
-  },
+  // avatar_url: {
+  //   type: String
+  // },
   introduction: {
     type: String,
-    select: false
+    // select: false
   }
 }, {
   timestamps: true

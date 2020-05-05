@@ -5,7 +5,8 @@ const router = new Router({
 })
 const {
   find,
-  create
+  create,
+  articleById
 } = require("../controller/Article")
 const secret = "asd"
 
@@ -15,5 +16,6 @@ const auth = jwt({
 
 router.get("/", find)
 router.post("/", auth, create)
+router.get("/:id", articleById)
 
 module.exports = router
