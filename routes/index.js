@@ -5,7 +5,7 @@ module.exports = app => {
     if (file === "index.js") {
       return;
     }
-    const route = require(`./${file}`);
+    const route = require(`./${file}`)
     app.use(route.routes()).use(route.allowedMethods());
   });
 };
