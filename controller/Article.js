@@ -39,17 +39,14 @@ class ArticleController {
   }
 
   async updateArticle(ctx) {
-    const article = await Article.findById(ctx.params.id)
-      .populate('topics', 'name')
-      .populate('author', 'name')
-    
-    // 类型不同，用 == 做隐式类型转换
-    if (ctx.state.user._id == article.author._id) {
-      // 验证后修改文章内容
-      // findOneAndUpdate
-    } else {
-      ctx.throw(403, "无权限修改文章")
+    const filter = {
+      _id: ctx.params.id,
+      author: ctx.state.user._id
     }
+
+    const article = await Article.findOneAndUpdate(filter, ctx.request.body, {
+      new: true
+    }).populate('topics', 'name').populate('author', 'name')
 
     ctx.body = article
   }
