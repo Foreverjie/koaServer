@@ -9,7 +9,7 @@ const {
   articleById,
   updateArticle,
 } = require("../controller/Article")
-const secret = "asd"
+const secret = require("../config")
 
 const auth = jwt({
   secret
