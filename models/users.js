@@ -14,7 +14,8 @@ const userSchema = new Schema({
   // select: boolean值, 指定是否被投影
   password: {
     type: String,
-    required: true
+    required: true,
+    select: false,
   },
   type: {
     type: String,
@@ -61,6 +62,6 @@ const userSchema = new Schema({
   }
 }, {
   timestamps: true
-});
+})
 
-module.exports = model("User", userSchema);
+module.exports = model("User", userSchema)

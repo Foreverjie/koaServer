@@ -4,10 +4,17 @@ const secret = require("../config")
 
 class UserController {
   async find(ctx) {
-    ctx.body = await User.find()
+    if (ctx.state.user.type === '0') {
+      ctx.body = await User.find()
+    } else {
+      ctx.throw(403, "无权限")
+    }
   }
 
   async create(ctx) {
+    if (ctx.state.user.type !== '0') {
+      ctx.throw(403, "无权限")
+    }
     ctx.verifyParams({
       name: {
         type: "string",
@@ -59,6 +66,17 @@ class UserController {
     ctx.body = {
       token
     }
+  }
+
+  async updatePassword(ctx) {
+    const filter = {
+      _id: ctx.state.user._id
+    }
+
+    const user = await User.findOneAndUpdate(filter, ctx.request.body, {
+      new: true
+    })
+    ctx.body = article
   }
 }
 

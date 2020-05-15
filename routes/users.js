@@ -5,11 +5,19 @@ const router = new Router({
 const {
   find,
   create,
-  login
+  login,
+  updatePassword,
 } = require("../controller/User")
+const secret = require("../config")
+const jwt = require("koa-jwt")
 
-router.get("/", find)
-router.post("/", create)
+const auth = jwt({
+  secret
+})
+
+router.get("/", auth, find)
+router.post("/", auth, create)
 router.post("/login", login)
+router.post("/update", auth, updatePassword)
 
 module.exports = router
