@@ -4,7 +4,8 @@ const secret = require("../config")
 
 class UserController {
   async find(ctx) {
-    if (ctx.state.user.type === '0') {
+    const adminUser = await User.findById(ctx.state.user._id)
+    if (adminUser.type === '0') {
       ctx.body = await User.find()
     } else {
       ctx.throw(403, "无权限")
@@ -12,7 +13,8 @@ class UserController {
   }
 
   async create(ctx) {
-    if (ctx.state.user.type !== '0') {
+    const adminUser = await User.findById(ctx.state.user._id)
+    if (adminUser.type !== '0') {
       ctx.throw(403, "无权限")
     }
     ctx.verifyParams({
@@ -23,7 +25,11 @@ class UserController {
       password: {
         type: "string",
         required: true
-      }
+      },
+      type: {
+        type: "string",
+        required: true
+      },
     })
     const {
       name
