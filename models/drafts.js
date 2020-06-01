@@ -5,14 +5,13 @@ const {
   model
 } = mongoose
 
-const articleSchema = new Schema({
+const draftSchema = new Schema({
   __v: {
     type: Number,
     select: false
   },
   title: {
     type: String,
-    required: true
   },
   // select: boolean值, 指定是否被投影
   author: {
@@ -23,11 +22,9 @@ const articleSchema = new Schema({
   },
   desc: {
     type: String,
-    required: true
   },
   content: {
     type: String,
-    required: true
   },
   topics: {
     type: [{
@@ -39,4 +36,4 @@ const articleSchema = new Schema({
   timestamps: true
 });
 
-module.exports = model("Article", articleSchema)
+module.exports = model("Draft", draftSchema)

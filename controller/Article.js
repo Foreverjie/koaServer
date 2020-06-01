@@ -1,5 +1,4 @@
 const Article = require("../models/articles")
-const Topic = require("../models/topics")
 
 
 class ArticleController {
