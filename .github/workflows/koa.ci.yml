@@ -24,4 +24,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm i
+    - run: cp /home/koaServer/config.js ./
     - run: pm2 restart koa
