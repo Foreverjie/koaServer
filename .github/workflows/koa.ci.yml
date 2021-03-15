@@ -20,5 +20,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: npm i
+    - run: pm2 list
     - run: cp /home/koaServer/config.js ./
     - run: pm2 restart koa
