@@ -49,6 +49,18 @@ class ArticleController {
 
     ctx.body = article
   }
+
+  async deleteArticle(ctx) {
+    const filter = {
+      _id: ctx.params.id,
+      author: ctx.state.user._id
+    }
+
+    const article = await Article.findOneAndDelete(filter, ctx.request.body)
+      .populate('topics', 'name').populate('author', 'name')
+
+    ctx.body = article
+  }
 }
 
 module.exports = new ArticleController()

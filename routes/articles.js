@@ -8,6 +8,7 @@ const {
   create,
   articleById,
   updateArticle,
+  deleteArticle,
 } = require("../controller/Article")
 const secret = require("../config")
 
@@ -19,5 +20,6 @@ router.get("/", find)
 router.post("/", auth, create)
 router.get("/:id", articleById)
 router.post("/:id", auth, updateArticle)
+router.delete("/:id", auth, deleteArticle)
 
 module.exports = router
