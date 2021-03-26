@@ -6,6 +6,7 @@ const routing = require("./routes")
 const logger = require("koa-logger")
 const mongoose = require("mongoose")
 const cors = require("@koa/cors")
+const path = require('path')
 
 const app = new Koa()
 
@@ -13,6 +14,13 @@ app.use(cors())
 app.use(
   koaBody({
     multipart: true,
+    // 上传文件
+    formidable: {
+      // 上传目录
+      uploadDir: path.join(__dirname, 'public/uploads'),
+      // 保留文件扩展名
+      keepExtensions: true,
+  }
   })
 )
 
