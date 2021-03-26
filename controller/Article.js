@@ -42,7 +42,7 @@ class ArticleController {
       _id: ctx.params.id,
       author: ctx.state.user._id
     }
-
+    // 返回新的结果需要 {new: true}
     const article = await Article.findOneAndUpdate(filter, ctx.request.body, {
       new: true
     }).populate('topics', 'name').populate('author', 'name')
@@ -56,7 +56,11 @@ class ArticleController {
       author: ctx.state.user._id
     }
 
-    const article = await Article.findOneAndDelete(filter, ctx.request.body)
+    const article = await Article.findOneAndUpdate(filter, {
+      deleted: true,
+    }, {
+      new: true
+    })
       .populate('topics', 'name').populate('author', 'name')
 
     ctx.body = article

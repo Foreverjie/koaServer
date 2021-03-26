@@ -18,7 +18,14 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v2
-    - run: npm i
-    - run: cp /home/koaServer/config.js ./
-    - run: PM2_HOME=/root/.pm2 pm2 restart koa
+      - name: Where am i?
+        run: |
+          pwd
+          ls
+      
+      - name: update pro
+        run: git pull
+        
+      - run: npm i
+      - run: cp /home/koaServer/config.js ./
+      - run: PM2_HOME=/root/.pm2 pm2 restart koa

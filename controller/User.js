@@ -63,6 +63,7 @@ class UserController {
       _id,
       name
     } = user
+    console.log('secret', typeof secret, secret)
     const token = jsonwebtoken.sign({
       _id,
       name

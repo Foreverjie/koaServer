@@ -35,6 +35,10 @@ const articleSchema = new Schema({
       ref: "Topic"
     }]
   },
+  deleted: {
+    type: Boolean,
+    default: false,
+  }
 }, {
   timestamps: true
 });
