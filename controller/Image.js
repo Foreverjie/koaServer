@@ -1,19 +1,16 @@
-const Image = require("../models/Images")
-const mime = require('mime-types')
+const Image = require("../models/images")
 const fs = require('fs')
 const path = require('path')
 
-const uploadFile = async ({ fileName, filePath, fileType }) => {
-  return new Promise((resolve, reject) => {
-    const stream = fs.createReadStream(filePath);
-    console.log('stream', stream)
 
-    stream.on("error", function(err) {
-      reject(err);
+function deleteByPath(path) {
+    // 删除源文件
+    fs.unlink(path, function (err) {
+      if (err) throw err;
+      // if no error, file has been deleted successfully
+      // console.log('File deleted!');
     });
-  });
-};
-
+}
 
 class ImageController {
   async find(ctx) {
@@ -22,47 +19,37 @@ class ImageController {
   }
 
   async create(ctx) {
-    // try {
-    //   const file = ctx.request.files.avatar
-    //   const { key, url } = await uploadFile({
-    //     fileName: file.name,
-    //     filePath: file.path,
-    //     fileType: file.type,
-    //   });
-    // } catch(err) {
-    //   console.log(`error ${err.message}`)
-    // }
-
     const file = ctx.request.files.avatar;
-    // console.log(file)
-
-    // fs.rename(file.path)
+    console.log(file.path)
 
     // 读取文件流
     const stream = fs.createReadStream(file.path);
 
     stream.on("error", function(err) {
-      reject(err);
+      console.log(err);
     });
 
-    const filePath = path.join(__dirname, '/public/upload/');
-    // 组装成绝对路径
-    // const fileResource = filePath + `${file.name}`;
-    // 直接使用 绝对路径 
-    const fileResource = file.path
+    const filePath = path.parse(file.path);
+    // TODO 根据来源不同设置不同 dir
+    const fileResource = filePath.dir + '/' + `${file.name}`;
 
     /*
     使用 createWriteStream 写入数据，然后使用管道流pipe拼接
     */
     const writeStream = fs.createWriteStream(fileResource);
 
-    stream.pipe(writeStream);
+    stream.pipe(writeStream).on('finish', () => {
+      deleteByPath(file.path);
+    });
+
     ctx.body = {
       url: fileResource,
       code: 0,
       message: '上传成功'
     };
   }
+
+
 }
 
 module.exports = new ImageController()

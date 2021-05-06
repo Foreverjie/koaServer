@@ -17,9 +17,10 @@ app.use(
     // 上传文件
     formidable: {
       // 上传目录
-      uploadDir: path.join(__dirname, 'public/uploads'),
+      uploadDir: path.join(__dirname, 'public/upload'),
       // 保留文件扩展名
       keepExtensions: true,
+      multipart: true, // 是否支持 multipart-formdate 的表单
   }
   })
 )
