@@ -21,6 +21,7 @@
     "koa-mongoose": "^2.0.0",
     "koa-parameter": "^3.0.1",
     "koa-router": "^8.0.8",
+    "koa-send": "^5.0.1",
     "mongoose": "^5.9.10"
   },
   "devDependencies": {

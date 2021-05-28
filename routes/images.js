@@ -5,9 +5,17 @@ const router = new Router({
 const {
   find,
   create,
+  getImgByName,
 } = require("../controller/Image")
+const secret = require("../config")
+const jwt = require("koa-jwt")
+
+const auth = jwt({
+  secret
+})
 
 router.get("/", find)
-router.post("/", create)
+router.post("/", auth, create)
+router.get("/:name", getImgByName)
 
 module.exports = router
