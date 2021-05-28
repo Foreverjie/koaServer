@@ -27,5 +27,5 @@ jobs:
         run: git pull
         
       - run: npm i
-      - run: cp /home/koaServer/config.js ./
+#       - run: cp /home/koaServer/config.js ./
       - run: PM2_HOME=/root/.pm2 pm2 restart koa
