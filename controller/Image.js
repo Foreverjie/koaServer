@@ -1,8 +1,9 @@
 const Image = require("../models/images")
 const fs = require("fs")
 const path = require("path")
-const send = require("koa-send")
+// const send = require("koa-send")
 const User = require("../models/users")
+const mime = require("mime-types")
 // const hash = require("../utils")
 
 function deleteByPath(path) {
@@ -63,8 +64,12 @@ class ImageController {
     const name = ctx.params.name
     console.log("name", name)
     const path = `public/upload/${name}`
-    ctx.attachment(path)
-    await send(ctx, path)
+    const mimeType = mime.lookup(path)
+    const src = fs.createReadStream(path)
+    ctx.response.set("content-type", mimeType)
+    ctx.body = src
+    // ctx.attachment(path)
+    // await send(ctx, path)
   }
 }
 
