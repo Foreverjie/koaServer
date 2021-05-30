@@ -50,7 +50,6 @@ class ImageController {
       })
 
       const filePath = path.parse(file.path)
-      // TODO 根据来源不同设置不同 dir
       // 检查文件夹是否存在？
       if (!fs.existsSync(filePath.dir + "/" + key)) {
         fs.mkdirSync(filePath.dir + "/" + key)
